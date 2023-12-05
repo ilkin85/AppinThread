@@ -24,8 +24,9 @@ public class Reject {
 
     private Date returnDate;
 
-    @OneToMany(mappedBy = "reject")
-    private List<Letter> letters;
+    @OneToOne
+    @JoinColumn(name = "letter_id")
+    private Letter letter;
 
 //    @OneToOne
 //    private Department fromDepartment;

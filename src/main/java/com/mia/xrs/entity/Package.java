@@ -32,6 +32,10 @@ public class Package {
 
     private Date receiveDate;
 
+    private String envelope;
+
+    private String parcel;
+
     private String senderSignature;
 
     private String receiverSignature;

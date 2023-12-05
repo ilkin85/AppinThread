@@ -10,6 +10,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Table
@@ -39,8 +40,7 @@ public class Letter {
     @OneToOne
     private Department toDepartment;
 
-    @ManyToOne
-    @JoinColumn(name = "reject_id")
+    @OneToOne(mappedBy = "letter")
     private Reject reject;
 
     @CreationTimestamp

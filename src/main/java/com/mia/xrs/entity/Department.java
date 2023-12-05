@@ -21,6 +21,8 @@ public class Department {
 
     private String name;
 
+    private Integer parentId;
+
     @OneToMany(mappedBy = "department")
     private List<UserSpecification> userSpecifications;
 }
