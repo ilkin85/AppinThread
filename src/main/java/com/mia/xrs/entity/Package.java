@@ -7,10 +7,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Table
@@ -28,13 +28,20 @@ public class Package {
     @Column(columnDefinition = "BOOLEAN DEFAULT true")
     private Boolean status;
 
-    private Double size;
+    private Date date;
 
-    private Double amount;
+    @OneToOne
+    private Department fromDepartment;
+
+    @OneToOne
+    private Department toDepartment;
 
     private String note;
 
-    private Date date;
+    private String signature;
+
+    @OneToMany
+    private List<Letter> letters;
 
     @CreationTimestamp
     @Column(updatable = false, columnDefinition = "TIMESTAMP DEFAULT now()")
@@ -48,6 +55,4 @@ public class Package {
 
     @ManyToOne
     private User updatedBy;
-
-
 }

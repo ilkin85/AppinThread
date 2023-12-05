@@ -30,9 +30,14 @@ public class Letter {
 
     private Date date;
 
-
     @Column(columnDefinition = "BOOLEAN DEFAULT true")
     private Boolean status;
+
+    @OneToOne
+    private Department fromDepartment;
+
+    @OneToOne
+    private Department toDepartment;
 
     @CreationTimestamp
     @Column(updatable = false, columnDefinition = "TIMESTAMP DEFAULT now()")
@@ -46,7 +51,4 @@ public class Letter {
 
     @ManyToOne
     private User updatedBy;
-
-
-
 }
