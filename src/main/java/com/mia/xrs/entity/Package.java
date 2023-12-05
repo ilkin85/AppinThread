@@ -51,6 +51,10 @@ public class Package {
     private Timestamp updatedAt;
 
     @ManyToOne
+    @JoinColumn(name = "form_id")
+    private Form form;
+
+    @ManyToOne
     private User createdBy;
 
     @ManyToOne
