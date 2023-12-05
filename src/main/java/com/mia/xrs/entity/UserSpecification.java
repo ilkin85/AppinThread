@@ -33,6 +33,10 @@ public class UserSpecification {
 
     private String note;
 
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department;
+
     @CreationTimestamp
     @Column(updatable = false, columnDefinition = "TIMESTAMP DEFAULT now()")
     private Timestamp createdAt;

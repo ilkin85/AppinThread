@@ -26,9 +26,9 @@ public class Letter {
 
     private String importanceDegree;
 
-    private String note;
-
     private Date date;
+
+    private String note;
 
     @Column(columnDefinition = "BOOLEAN DEFAULT true")
     private Boolean status;
@@ -38,6 +38,10 @@ public class Letter {
 
     @OneToOne
     private Department toDepartment;
+
+    @ManyToOne
+    @JoinColumn(name = "reject_id")
+    private Reject reject;
 
     @CreationTimestamp
     @Column(updatable = false, columnDefinition = "TIMESTAMP DEFAULT now()")

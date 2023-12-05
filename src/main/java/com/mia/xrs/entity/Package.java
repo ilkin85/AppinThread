@@ -28,17 +28,23 @@ public class Package {
     @Column(columnDefinition = "BOOLEAN DEFAULT true")
     private Boolean status;
 
-    private Date date;
+    private Date sentDate;
+
+    private Date receiveDate;
+
+    private String senderSignature;
+
+    private String receiverSignature;
+
+    private String note;
+
+    private Integer letterCount;
 
     @OneToOne
     private Department fromDepartment;
 
     @OneToOne
     private Department toDepartment;
-
-    private String note;
-
-    private String signature;
 
     @OneToMany
     private List<Letter> letters;

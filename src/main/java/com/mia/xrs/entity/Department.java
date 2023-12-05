@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table
 @Getter
@@ -18,4 +20,7 @@ public class Department {
     private Integer id;
 
     private String name;
+
+    @OneToMany(mappedBy = "department")
+    private List<UserSpecification> userSpecifications;
 }
