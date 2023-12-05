@@ -18,5 +18,4 @@ public class Form {
     private Integer id;
 
     private String formNumber;
-
 }
