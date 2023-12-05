@@ -9,6 +9,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 @Entity
@@ -29,9 +30,11 @@ public class Package {
 
     private Double size;
 
-    private Double packageFee;
+    private Double amount;
 
     private String note;
+
+    private Date date;
 
     @CreationTimestamp
     @Column(updatable = false, columnDefinition = "TIMESTAMP DEFAULT now()")
