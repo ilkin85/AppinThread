@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.security.core.context.SecurityContextHolder;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 @Entity
@@ -24,12 +24,15 @@ public class Letter {
 
     private Integer letterNo;
 
-    @Column(columnDefinition = "BOOLEAN DEFAULT true")
-    private Boolean status;
-
     private String importanceDegree;
 
     private String note;
+
+    private Date date;
+
+
+    @Column(columnDefinition = "BOOLEAN DEFAULT true")
+    private Boolean status;
 
     @CreationTimestamp
     @Column(updatable = false, columnDefinition = "TIMESTAMP DEFAULT now()")
