@@ -21,4 +21,8 @@ public class LetterDto {
     private Date date;
 
     private Boolean status;
+
+    private DepartmentDto fromDepartmentDto;
+
+    private DepartmentDto toDepartmentDto;
 }
