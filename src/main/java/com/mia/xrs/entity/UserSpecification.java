@@ -31,8 +31,6 @@ public class UserSpecification {
 
     private String rank;
 
-    private String note;
-
     @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;
