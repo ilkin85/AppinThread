@@ -1,10 +1,7 @@
 package com.mia.xrs.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,11 +9,12 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table
+@Table(name = "user")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class User implements UserDetails {
 
     @Id
@@ -29,11 +27,13 @@ public class User implements UserDetails {
 
     private Boolean isEnabled;
 
-    @OneToOne
-    private UserSpecification userSpecification;
+    private String name;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    List<Role> authorities;
+    private List<Role> authorities;
+
+    @OneToOne
+    private UserSpecification userSpecification;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
