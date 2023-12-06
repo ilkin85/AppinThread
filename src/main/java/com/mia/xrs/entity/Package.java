@@ -44,11 +44,11 @@ public class Package {
 
     private Integer letterCount;
 
-    @OneToOne
-    private Department fromDepartment;
-
-    @OneToOne
-    private Department toDepartment;
+//    @OneToOne
+//    private Department fromDepartment;
+//
+//    @OneToOne
+//    private Department toDepartment;
 
     @OneToMany
     private List<Letter> letters;
