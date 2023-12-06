@@ -1,4 +1,4 @@
-package com.mia.xrs.service;
+package com.mia.xrs.service.Impl;
 
 import com.mia.xrs.entity.User;
 import com.mia.xrs.repository.UserRepository;

@@ -1,6 +1,6 @@
 package com.mia.xrs.security;
 
-import com.mia.xrs.service.UserDetailsServiceImpl;
+import com.mia.xrs.service.Impl.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
