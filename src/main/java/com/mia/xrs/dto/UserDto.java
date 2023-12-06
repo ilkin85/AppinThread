@@ -7,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserSpecificationDto {
+public class UserDto {
     private Integer id;
 
     private String firstName;
