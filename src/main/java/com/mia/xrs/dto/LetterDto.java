@@ -2,7 +2,7 @@ package com.mia.xrs.dto;
 
 import lombok.*;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 @Getter
 @Setter
@@ -14,11 +14,13 @@ public class LetterDto {
 
     private Integer letterNo;
 
+    private DepartmentDto fromDepartment;
+
+    private DepartmentDto toDepartment;
+
     private String importanceDegree;
 
+    private Timestamp date;
+
     private String note;
-
-    private Date date;
-
-    private Boolean status;
 }
