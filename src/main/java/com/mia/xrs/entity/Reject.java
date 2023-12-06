@@ -6,8 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-import java.util.List;
+import java.sql.Timestamp;
 
 @Entity
 @Table
@@ -16,13 +15,14 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Reject {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String routeNo;
 
-    private Date returnDate;
+    private Timestamp returnDate;
 
     @OneToOne
     @JoinColumn(name = "letter_id")

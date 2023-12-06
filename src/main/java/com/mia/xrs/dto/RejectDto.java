@@ -1,29 +1,29 @@
 package com.mia.xrs.dto;
 
-import com.mia.xrs.entity.Letter;
-import com.mia.xrs.entity.User;
 import lombok.*;
 
-import java.util.Date;
+import java.sql.Timestamp;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class RejectDto {
+
     private Integer id;
 
     private String routeNo;
 
-    private Date returnDate;
+    private Timestamp returnDate;
 
-    private Letter letter;
+    private LetterDto letter;
 
     private String rejectReason;
 
-    private User returner;
+    private UserDto returner;
 
-    private User receiver;
+    private UserDto receiver;
 
     private String returnerSignature;
 

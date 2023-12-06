@@ -17,6 +17,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserSpecification {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -41,6 +42,4 @@ public class UserSpecification {
 
     @UpdateTimestamp
     private Timestamp updatedAt;
-
-
 }

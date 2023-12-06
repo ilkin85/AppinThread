@@ -8,13 +8,14 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class UserDto {
+
     private Integer id;
 
     private String firstName;
 
     private String lastName;
 
-    private String  fatherName;
+    private String fatherName;
 
     private String policeCard;
 

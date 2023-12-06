@@ -2,7 +2,8 @@ package com.mia.xrs.dto;
 
 import lombok.*;
 
-import java.util.Date;
+import java.sql.Timestamp;
+import java.util.List;
 
 @Getter
 @Setter
@@ -10,17 +11,18 @@ import java.util.Date;
 @NoArgsConstructor
 @Builder
 public class PackageDto {
+
     private Integer id;
+
+    private FormDto form;
 
     private Integer packageNo;
 
-    private Integer letterCount;
+    private List<LetterDto> letters;
 
-    private Boolean status;
+    private Timestamp sentDate;
 
-    private Date sentDate;
-
-    private Date receiveDate;
+    private Timestamp receiveDate;
 
     private String envelope;
 
@@ -30,5 +32,5 @@ public class PackageDto {
 
     private String receiverSignature;
 
-    private String note;
+    private Integer letterCount;
 }

@@ -8,7 +8,6 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -28,9 +27,9 @@ public class Package {
     @Column(columnDefinition = "BOOLEAN DEFAULT true")
     private Boolean status;
 
-    private Date sentDate;
+    private Timestamp sentDate;
 
-    private Date receiveDate;
+    private Timestamp receiveDate;
 
     private String envelope;
 

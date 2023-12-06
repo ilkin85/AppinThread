@@ -8,9 +8,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.List;
 
 @Entity
 @Table
@@ -27,7 +25,7 @@ public class Letter {
 
     private String importanceDegree;
 
-    private Date date;
+    private Timestamp date;
 
     private String note;
 

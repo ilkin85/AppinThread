@@ -12,5 +12,4 @@ public class FormDto {
     private Integer id;
 
     private String formNumber;
-
 }
