@@ -4,9 +4,11 @@ import com.mia.xrs.dto.DepartmentDto;
 import com.mia.xrs.dto.LetterDto;
 import com.mia.xrs.entity.Letter;
 import com.mia.xrs.mapper.Mapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class LetterMapper implements Mapper<Letter, LetterDto> {
 
     @Override

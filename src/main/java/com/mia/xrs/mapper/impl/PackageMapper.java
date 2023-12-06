@@ -6,11 +6,13 @@ import com.mia.xrs.dto.LetterDto;
 import com.mia.xrs.dto.PackageDto;
 import com.mia.xrs.entity.Package;
 import com.mia.xrs.mapper.Mapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
 
 @Component
+@RequiredArgsConstructor
 public class PackageMapper implements Mapper<Package, PackageDto> {
 
     @Override

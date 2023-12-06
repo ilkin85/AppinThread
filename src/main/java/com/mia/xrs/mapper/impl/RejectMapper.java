@@ -6,9 +6,11 @@ import com.mia.xrs.dto.RejectDto;
 import com.mia.xrs.dto.UserDto;
 import com.mia.xrs.entity.Reject;
 import com.mia.xrs.mapper.Mapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class RejectMapper implements Mapper<Reject, RejectDto> {
 
     @Override
