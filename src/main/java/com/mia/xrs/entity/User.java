@@ -27,8 +27,6 @@ public class User implements UserDetails {
 
     private Boolean isEnabled;
 
-    private String name;
-
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> authorities;
 

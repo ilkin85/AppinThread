@@ -10,11 +10,10 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class JwtResponse {
+
     private String jwt;
 
     private String username;
 
     private List<String> roles;
-
-    private String name;
 }

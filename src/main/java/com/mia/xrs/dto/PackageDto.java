@@ -3,6 +3,7 @@ package com.mia.xrs.dto;
 import lombok.*;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -14,6 +15,8 @@ public class PackageDto {
 
     private Integer id;
 
+    private Integer uniqueId;
+
     private FormDto form;
 
     private Integer packageNo;
@@ -24,13 +27,11 @@ public class PackageDto {
 
     private Timestamp receiveDate;
 
-    private String envelope;
-
-    private String parcel;
-
     private String senderSignature;
 
     private String receiverSignature;
+
+    private UserDto createdBy;
 
     private Integer letterCount;
 }

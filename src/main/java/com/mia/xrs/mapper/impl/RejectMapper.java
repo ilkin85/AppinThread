@@ -15,6 +15,7 @@ public class RejectMapper implements Mapper<Reject, RejectDto> {
 
     @Override
     public RejectDto toDto(Reject reject) {
+
         return RejectDto.builder()
                 .id(reject.getId())
                 .routeNo(reject.getRouteNo())
@@ -32,6 +33,24 @@ public class RejectMapper implements Mapper<Reject, RejectDto> {
                                 .name(reject.getLetter().getToDepartment().getName())
                                 .parentId(reject.getLetter().getToDepartment().getParentId())
                                 .build())
+                        .importanceDegree(reject.getLetter().getImportanceDegree())
+                        .envelope(reject.getLetter().getEnvelope())
+                        .parcel(reject.getLetter().getParcel())
+                        .createdBy(UserDto.builder()
+                                .id(reject.getLetter().getCreatedBy().getId())
+                                .firstName(reject.getLetter().getCreatedBy().getUserSpecification().getFirstName())
+                                .lastName(reject.getLetter().getCreatedBy().getUserSpecification().getLastName())
+                                .fatherName(reject.getLetter().getCreatedBy().getUserSpecification().getFatherName())
+                                .policeCard(reject.getLetter().getCreatedBy().getUserSpecification().getPoliceCard())
+                                .rank(reject.getLetter().getCreatedBy().getUserSpecification().getRank())
+                                .department(DepartmentDto.builder()
+                                        .id(reject.getLetter().getCreatedBy().getUserSpecification().getDepartment().getId())
+                                        .name(reject.getLetter().getCreatedBy().getUserSpecification().getDepartment().getName())
+                                        .parentId(reject.getLetter().getCreatedBy().getUserSpecification().getDepartment().getParentId())
+                                        .build())
+                                .build())
+                        .date(reject.getLetter().getDate())
+                        .note(reject.getLetter().getNote())
                         .build())
                 .rejectReason(reject.getRejectReason())
                 .returner(UserDto.builder()
@@ -52,7 +71,7 @@ public class RejectMapper implements Mapper<Reject, RejectDto> {
     }
 
     @Override
-    public Reject toPackage(RejectDto rejectDto) {
+    public Reject toEntity(RejectDto rejectDto) {
         return null;
     }
 }

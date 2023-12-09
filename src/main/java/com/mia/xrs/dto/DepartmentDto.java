@@ -1,5 +1,6 @@
 package com.mia.xrs.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 @Getter
@@ -13,5 +14,6 @@ public class DepartmentDto {
 
     private String name;
 
+    @JsonIgnore
     private Integer parentId;
 }

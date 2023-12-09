@@ -1,6 +1,6 @@
 package com.mia.xrs.security;
 
-import com.mia.xrs.service.UserDetailsServiceImpl;
+import com.mia.xrs.service.Impl.UserDetailsServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

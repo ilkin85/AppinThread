@@ -11,6 +11,12 @@ public class UserDto {
 
     private Integer id;
 
+    private String username;
+
+    private String password;
+
+    private String authorities;
+
     private String firstName;
 
     private String lastName;
@@ -21,5 +27,5 @@ public class UserDto {
 
     private String rank;
 
-    private String note;
+    private DepartmentDto department;
 }

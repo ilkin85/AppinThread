@@ -3,10 +3,12 @@ package com.mia.xrs.controller;
 import com.mia.xrs.dto.JwtResponse;
 import com.mia.xrs.dto.JwtTokenDto;
 import com.mia.xrs.dto.LoginRequest;
+import com.mia.xrs.dto.UserDto;
 import com.mia.xrs.entity.User;
 import com.mia.xrs.repository.RoleRepository;
 import com.mia.xrs.repository.UserRepository;
 import com.mia.xrs.security.JwtUtils;
+import com.mia.xrs.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,20 +32,20 @@ import java.util.stream.Collectors;
 public class AuthController {
 
     @Autowired
-    RoleRepository roleRepository;
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
     AuthenticationManager authenticationManager;
     @Autowired
-    PasswordEncoder encoder;
-    @Autowired
     JwtUtils jwtUtils;
-
     @Autowired
     UserDetailsService userDetailsService;
+    @Autowired
+    UserService userService;
 
-    @PostMapping("/signin")
+    @PostMapping("/register")
+    public UserDto register(@RequestBody UserDto userDto){
+        return userService.save(userDto);
+    }
+
+    @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
@@ -61,7 +63,6 @@ public class AuthController {
                 .jwt(jwt)
                 .username(userDetails.getUsername())
                 .roles(roles)
-                .name(userDetails.getName())
                 .build());
     }
 

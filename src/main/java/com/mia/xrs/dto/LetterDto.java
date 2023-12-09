@@ -10,7 +10,12 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Builder
 public class LetterDto {
+
     private Integer id;
+
+    private Integer uniqueId;
+
+    private Integer serialNo;
 
     private Integer letterNo;
 
@@ -19,6 +24,12 @@ public class LetterDto {
     private DepartmentDto toDepartment;
 
     private String importanceDegree;
+
+    private Integer envelope;
+
+    private Integer parcel;
+
+    private UserDto createdBy;
 
     private Timestamp date;
 

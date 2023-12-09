@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -22,6 +23,8 @@ public class Package {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    private Integer uniqueId;
+
     private Integer packageNo;
 
     @Column(columnDefinition = "BOOLEAN DEFAULT true")
@@ -30,10 +33,6 @@ public class Package {
     private Timestamp sentDate;
 
     private Timestamp receiveDate;
-
-    private String envelope;
-
-    private String parcel;
 
     private String senderSignature;
 
@@ -49,7 +48,7 @@ public class Package {
 //    @OneToOne
 //    private Department toDepartment;
 
-    @OneToMany
+    @OneToMany(mappedBy = "aPackage")
     private List<Letter> letters;
 
     @CreationTimestamp
@@ -68,4 +67,19 @@ public class Package {
 
     @ManyToOne
     private User updatedBy;
+
+    @PrePersist
+    public void prePersist() {
+        setCreatedBy(getAuthenticatedUser());
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        setUpdatedBy(getAuthenticatedUser());
+    }
+
+    private User getAuthenticatedUser() {
+
+        return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
 }
