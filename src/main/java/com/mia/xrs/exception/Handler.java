@@ -2,6 +2,6 @@ package com.mia.xrs.exception;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 
-@ControllerAdvice
+//@ControllerAdvice
 public class Handler {
 }

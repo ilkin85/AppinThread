@@ -3,6 +3,7 @@ package com.mia.xrs.service.Impl;
 import com.mia.xrs.dto.LetterDto;
 import com.mia.xrs.dto.PackageDto;
 import com.mia.xrs.entity.Department;
+import com.mia.xrs.entity.Form;
 import com.mia.xrs.entity.Letter;
 import com.mia.xrs.entity.Package;
 import com.mia.xrs.mapper.impl.LetterMapper;
@@ -85,6 +86,49 @@ public class PackageServiceImpl implements PackageService {
         Package save = packageRepository.save(aPackage);
 
         return packageMapper.toDto(save);
-
     }
+
+    @Override
+    @Transactional
+    public PackageDto update(Integer id, PackageDto packageDto) {
+        Package aPackage = packageRepository.findByIdAndStatus(id,true)
+                .orElseThrow(() -> new RuntimeException("Package by id : " + id + " not found"));
+
+        aPackage.setStatus(false);
+
+        Package newPackage = new Package();
+        newPackage.setId(null);
+        newPackage.setUniqueId(aPackage.getUniqueId());
+        newPackage.setStatus(true);
+        newPackage.setCreatedAt(null);
+        newPackage.setPackageNo(packageDto.getPackageNo());
+
+
+        newPackage.setLetterCount(packageRepository.countByLetterAndStatus(packageDto.getPackageNo(), true)+1);
+
+
+
+        newPackage.setForm(formRepository.findById(aPackage.getForm().getId())
+                .orElseThrow(() -> new RuntimeException("Salam by id : " + id + " not found")));
+
+
+        List<Letter> letters = new ArrayList<>();
+
+        Letter letter;
+        for (LetterDto letterDto : packageDto.getLetters()){
+
+             letter = letterRepository.findByIdAndStatus(letterDto.getId(), true).orElseThrow();
+
+            letters.add(letter);
+        }
+
+        newPackage.setLetters(letters);
+
+        Package save = packageRepository.save(newPackage);
+
+
+        return packageMapper.toDto(save);
+    }
+
+
 }

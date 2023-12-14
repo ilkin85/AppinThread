@@ -48,7 +48,7 @@ public class Package {
 //    @OneToOne
 //    private Department toDepartment;
 
-    @OneToMany(mappedBy = "aPackage")
+    @ManyToMany
     private List<Letter> letters;
 
     @CreationTimestamp

@@ -63,10 +63,6 @@ public class Letter {
     @ManyToOne
     private User updatedBy;
 
-    @ManyToOne
-    @JoinColumn(name = "a_package_id")
-    private Package aPackage;
-
     @PrePersist
     public void prePersist() {
         setCreatedBy(getAuthenticatedUser());

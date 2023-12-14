@@ -31,7 +31,7 @@ public class PackageDto {
 
     private String receiverSignature;
 
-    private UserDto createdBy;
+//    private UserDto createdBy;
 
     private Integer letterCount;
 }

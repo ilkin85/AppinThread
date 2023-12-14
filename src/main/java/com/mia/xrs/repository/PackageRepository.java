@@ -5,6 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
 import java.util.Optional;
 
 public interface PackageRepository extends JpaRepository<Package,Integer> {
@@ -15,4 +17,8 @@ public interface PackageRepository extends JpaRepository<Package,Integer> {
     Page<Package> findByStatus(Boolean status, Pageable pageable);
 
     Optional<Package> findByIdAndStatus(Integer id, Boolean status);
+
+    @Query("SELECT COUNT(l) FROM Package p JOIN p.letters l WHERE p.packageNo = :packageNo AND l.status = :status")
+    Integer countByLetterAndStatus(@Param("packageNo") Integer packageNo, @Param("status") Boolean status);
+
 }

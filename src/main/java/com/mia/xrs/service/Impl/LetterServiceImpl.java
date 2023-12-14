@@ -6,6 +6,7 @@ import com.mia.xrs.entity.Letter;
 import com.mia.xrs.mapper.impl.LetterMapper;
 import com.mia.xrs.repository.DepartmentRepository;
 import com.mia.xrs.repository.LetterRepository;
+import com.mia.xrs.repository.PackageRepository;
 import com.mia.xrs.service.LetterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -150,6 +151,8 @@ public class LetterServiceImpl implements LetterService {
 
         newLetter.setToDepartment(toDepartment);
         newLetter.setCreatedBy(letter.getCreatedBy());
+
+
 
         Letter save = letterRepository.save(newLetter);
 
