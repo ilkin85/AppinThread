@@ -18,7 +18,6 @@ public class LetterMapper implements Mapper<Letter, LetterDto> {
         return LetterDto.builder()
                 .id(letter.getId())
                 .uniqueId(letter.getUniqueId())
-                .serialNo(letter.getSerialNo())
                 .letterNo(letter.getLetterNo())
                 .fromDepartment(DepartmentDto.builder()
                         .id(letter.getFromDepartment().getId())

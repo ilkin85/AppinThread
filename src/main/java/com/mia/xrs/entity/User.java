@@ -33,6 +33,12 @@ public class User implements UserDetails {
     @OneToOne
     private UserSpecification userSpecification;
 
+    @OneToMany(mappedBy = "returner")
+    private List<Reject> back;
+
+    @OneToMany(mappedBy = "receiver")
+    private List<Reject> receive;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;

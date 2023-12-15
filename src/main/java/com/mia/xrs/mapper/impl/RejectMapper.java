@@ -1,7 +1,5 @@
 package com.mia.xrs.mapper.impl;
 
-import com.mia.xrs.dto.DepartmentDto;
-import com.mia.xrs.dto.LetterDto;
 import com.mia.xrs.dto.RejectDto;
 import com.mia.xrs.dto.UserDto;
 import com.mia.xrs.entity.Reject;
@@ -13,6 +11,8 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class RejectMapper implements Mapper<Reject, RejectDto> {
 
+    private final LetterMapper letterMapper;
+
     @Override
     public RejectDto toDto(Reject reject) {
 
@@ -20,38 +20,7 @@ public class RejectMapper implements Mapper<Reject, RejectDto> {
                 .id(reject.getId())
                 .routeNo(reject.getRouteNo())
                 .returnDate(reject.getReturnDate())
-                .letter(LetterDto.builder()
-                        .id(reject.getLetter().getId())
-                        .letterNo(reject.getLetter().getLetterNo())
-                        .fromDepartment(DepartmentDto.builder()
-                                .id(reject.getLetter().getFromDepartment().getId())
-                                .name(reject.getLetter().getFromDepartment().getName())
-                                .parentId(reject.getLetter().getFromDepartment().getParentId())
-                                .build())
-                        .toDepartment(DepartmentDto.builder()
-                                .id(reject.getLetter().getToDepartment().getId())
-                                .name(reject.getLetter().getToDepartment().getName())
-                                .parentId(reject.getLetter().getToDepartment().getParentId())
-                                .build())
-                        .importanceDegree(reject.getLetter().getImportanceDegree())
-                        .envelope(reject.getLetter().getEnvelope())
-                        .parcel(reject.getLetter().getParcel())
-                        .createdBy(UserDto.builder()
-                                .id(reject.getLetter().getCreatedBy().getId())
-                                .firstName(reject.getLetter().getCreatedBy().getUserSpecification().getFirstName())
-                                .lastName(reject.getLetter().getCreatedBy().getUserSpecification().getLastName())
-                                .fatherName(reject.getLetter().getCreatedBy().getUserSpecification().getFatherName())
-                                .policeCard(reject.getLetter().getCreatedBy().getUserSpecification().getPoliceCard())
-                                .rank(reject.getLetter().getCreatedBy().getUserSpecification().getRank())
-                                .department(DepartmentDto.builder()
-                                        .id(reject.getLetter().getCreatedBy().getUserSpecification().getDepartment().getId())
-                                        .name(reject.getLetter().getCreatedBy().getUserSpecification().getDepartment().getName())
-                                        .parentId(reject.getLetter().getCreatedBy().getUserSpecification().getDepartment().getParentId())
-                                        .build())
-                                .build())
-                        .date(reject.getLetter().getDate())
-                        .note(reject.getLetter().getNote())
-                        .build())
+                .letter(letterMapper.toDto(reject.getLetter()))
                 .rejectReason(reject.getRejectReason())
                 .returner(UserDto.builder()
                         .firstName(reject.getReturner().getUserSpecification().getFirstName())

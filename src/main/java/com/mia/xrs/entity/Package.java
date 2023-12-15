@@ -42,13 +42,7 @@ public class Package {
 
     private Integer letterCount;
 
-//    @OneToOne
-//    private Department fromDepartment;
-//
-//    @OneToOne
-//    private Department toDepartment;
-
-    @ManyToMany
+    @OneToMany(mappedBy = "aPackage")
     private List<Letter> letters;
 
     @CreationTimestamp

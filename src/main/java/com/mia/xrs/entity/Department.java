@@ -22,6 +22,12 @@ public class Department {
 
     private Integer parentId;
 
+    @OneToMany(mappedBy = "fromDepartment")
+    private List<Letter> letterFrom;
+
+    @OneToMany(mappedBy = "toDepartment")
+    private List<Letter> letterTo;
+
     @OneToMany(mappedBy = "department")
     private List<UserSpecification> userSpecifications;
 }

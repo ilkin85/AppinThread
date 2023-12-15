@@ -5,8 +5,6 @@ import com.mia.xrs.dto.JwtTokenDto;
 import com.mia.xrs.dto.LoginRequest;
 import com.mia.xrs.dto.UserDto;
 import com.mia.xrs.entity.User;
-import com.mia.xrs.repository.RoleRepository;
-import com.mia.xrs.repository.UserRepository;
 import com.mia.xrs.security.JwtUtils;
 import com.mia.xrs.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +16,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -71,7 +68,6 @@ public class AuthController {
 
         try{
             userDetailsService.loadUserByUsername(jwtUtils.getUserNameFromJwtToken(token.getJwt()));
-
             jwtUtils.validateJwtToken(token.getJwt());
             return ResponseEntity.ok("JWT token is valid");
         } catch (RuntimeException ex) {

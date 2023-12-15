@@ -3,7 +3,6 @@ package com.mia.xrs.dto;
 import lombok.*;
 
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -31,7 +30,7 @@ public class PackageDto {
 
     private String receiverSignature;
 
-//    private UserDto createdBy;
+    private UserDto createdBy;
 
     private Integer letterCount;
 }

@@ -3,13 +3,11 @@ package com.mia.xrs.repository;
 import com.mia.xrs.entity.Letter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,17 +16,18 @@ public interface LetterRepository extends JpaRepository<Letter,Integer> {
     @Query("SELECT COALESCE(MAX(l.uniqueId), 0) FROM Letter l")
     Integer findByMaxUniqueId();
 
-    @Query("SELECT COALESCE(MAX(l.serialNo), 0) FROM Letter l")
-    Integer findBySerialNo();
-
-    List<Letter> findByStatus(Boolean status, Sort sort);
-
     Page<Letter> findByStatus(Boolean status, Pageable pageable);
 
     Optional<Letter> findByIdAndStatus(Integer id, Boolean status);
 
     @Query("SELECT l FROM Letter l WHERE l.letterNo = :letterNo AND l.status = :status")
     Letter findByLetterNoAndStatus(@Param("letterNo") Integer letterNo, @Param("status") Boolean status);
+
+    @Query("SELECT l FROM Letter l " +
+            "WHERE l.fromDepartment.parentId = :parentId " +
+            "AND l.status = :status")
+    List<Letter> findByFromDepartmentParentIdAndLetterStatus(@Param("parentId") Integer parentId, @Param("status") Boolean status);
+
 //    @Query("SELECT l FROM Letter l WHERE l.date = :date AND l.status = :status")
 //    Page<Letter> findByDateAndStatus(@Param("date") Timestamp date, @Param("status") Boolean status, Pageable pageable);
 //

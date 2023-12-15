@@ -6,5 +6,4 @@ import com.mia.xrs.entity.User;
 public interface UserService {
 
     UserDto save(UserDto userDto);
-
 }

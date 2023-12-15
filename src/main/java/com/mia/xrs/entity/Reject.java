@@ -28,18 +28,14 @@ public class Reject {
     @JoinColumn(name = "letter_id")
     private Letter letter;
 
-//    @OneToOne
-//    private Department fromDepartment;
-
-//    @OneToOne
-//    private Department toDepartment;
-
     private String rejectReason;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name="returner_id")
     private User returner;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name="receiver_id")
     private User receiver;
 
     private String returnerSignature;

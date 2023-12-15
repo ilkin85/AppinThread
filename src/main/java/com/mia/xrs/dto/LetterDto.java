@@ -15,8 +15,6 @@ public class LetterDto {
 
     private Integer uniqueId;
 
-    private Integer serialNo;
-
     private Integer letterNo;
 
     private DepartmentDto fromDepartment;

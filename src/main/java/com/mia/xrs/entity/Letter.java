@@ -24,8 +24,6 @@ public class Letter {
 
     private Integer uniqueId;
 
-    private Integer serialNo;
-
     private Integer letterNo;
 
     private String importanceDegree;
@@ -42,9 +40,15 @@ public class Letter {
     private Boolean status;
 
     @ManyToOne
+    @JoinColumn(name = "a_package_id")
+    private Package aPackage;
+
+    @ManyToOne
+    @JoinColumn(name = "from_department_id")
     private Department fromDepartment;
 
     @ManyToOne
+    @JoinColumn(name = "to_department_id")
     private Department toDepartment;
 
     @OneToOne(mappedBy = "letter")

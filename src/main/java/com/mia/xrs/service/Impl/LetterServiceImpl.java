@@ -6,7 +6,6 @@ import com.mia.xrs.entity.Letter;
 import com.mia.xrs.mapper.impl.LetterMapper;
 import com.mia.xrs.repository.DepartmentRepository;
 import com.mia.xrs.repository.LetterRepository;
-import com.mia.xrs.repository.PackageRepository;
 import com.mia.xrs.service.LetterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -29,7 +28,7 @@ public class LetterServiceImpl implements LetterService {
     @Override
     public Page<LetterDto> findAllPage(Integer pageSize, Integer pageNumber, String[] sortBy) {
 
-        Integer defaultPageSize = 10;
+        int defaultPageSize = 10;
         String[] defaultSortBy = {"letterNo"};
 
         pageSize = (pageSize == null) ? defaultPageSize : pageSize;
@@ -65,7 +64,7 @@ public class LetterServiceImpl implements LetterService {
                                          Integer pageNumber,
                                          String[] sortBy) {
 
-        Integer defaultPageSize = 10;
+        int defaultPageSize = 10;
         String[] defaultSortBy = {"letterNo"};
 
         pageSize = (pageSize == null) ? defaultPageSize : pageSize;
@@ -85,7 +84,6 @@ public class LetterServiceImpl implements LetterService {
         letter.setId(null);
         letter.setStatus(true);
         letter.setUniqueId(letterRepository.findByMaxUniqueId() + 1);
-        letter.setSerialNo(letterRepository.findBySerialNo() + 1);
         letter.setLetterNo(letterDto.getLetterNo());
         letter.setCreatedAt(null);
 
@@ -97,7 +95,6 @@ public class LetterServiceImpl implements LetterService {
 
         letter.setFromDepartment(fromDepartment);
         letter.setToDepartment(toDepartment);
-
 
         letter.setImportanceDegree(letterDto.getImportanceDegree());
 
@@ -121,7 +118,6 @@ public class LetterServiceImpl implements LetterService {
 
         Letter letter = letterRepository.findByIdAndStatus(id,true)
                 .orElseThrow(() -> new RuntimeException("Letter by id : " + id + " not found"));
-
         letter.setStatus(false);
 
         Letter newLetter = new Letter();
@@ -152,8 +148,6 @@ public class LetterServiceImpl implements LetterService {
         newLetter.setToDepartment(toDepartment);
         newLetter.setCreatedBy(letter.getCreatedBy());
 
-
-
         Letter save = letterRepository.save(newLetter);
 
         return letterMapper.toDto(save);
@@ -162,7 +156,6 @@ public class LetterServiceImpl implements LetterService {
     @Override
     @Transactional
     public void delete(Integer id) {
-
         Letter letter = letterRepository.findByIdAndStatus(id, true)
                 .orElseThrow(() -> new RuntimeException("Letter by id : " + id + " not found"));
 
