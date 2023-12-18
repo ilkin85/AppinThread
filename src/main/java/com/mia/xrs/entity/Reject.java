@@ -1,3 +1,4 @@
+
 package com.mia.xrs.entity;
 
 import jakarta.persistence.*;
