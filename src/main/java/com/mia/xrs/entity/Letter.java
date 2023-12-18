@@ -9,6 +9,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 @Entity
@@ -32,7 +33,7 @@ public class Letter {
 
     private Integer parcel;
 
-    private Timestamp date;
+    private Date date;
 
     private String note;
 

@@ -2,7 +2,8 @@ package com.mia.xrs.dto;
 
 import lombok.*;
 
-import java.sql.Timestamp;
+import java.sql.Date;
+
 
 @Getter
 @Setter
@@ -29,7 +30,7 @@ public class LetterDto {
 
     private UserDto createdBy;
 
-    private Timestamp date;
+    private Date date;
 
     private String note;
 }

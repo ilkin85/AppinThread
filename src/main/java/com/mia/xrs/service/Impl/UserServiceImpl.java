@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto save(UserDto userDto) {
 
-        Role roleAdmin = roleRepository.save(Role.builder().authority("ROLE_ADMIN").build());
+//        Role roleAdmin = roleRepository.save(Role.builder().authority("ROLE_ADMIN").build());
         Role roleUser = roleRepository.save(Role.builder().authority("ROLE_USER").build());
 
         UserSpecification userSpecification = new UserSpecification();
@@ -42,12 +42,6 @@ public class UserServiceImpl implements UserService {
 
         Department department = departmentRepository.findById(userDto.getDepartment().getId())
                 .orElseThrow(() -> new RuntimeException("Department by id : " + userDto.getDepartment().getId() + " not found"));
-
-//        Department department = new Department();
-//        department.setId(null);
-//        department.setName(userDto.getDepartment().getName());
-//        department.setParentId(userDto.getDepartment().getParentId());
-//        departmentRepository.save(department);
 
         userSpecification.setDepartment(department);
         userSpecificationRepository.save(userSpecification);

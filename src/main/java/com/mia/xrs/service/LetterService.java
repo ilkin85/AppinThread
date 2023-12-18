@@ -15,11 +15,25 @@ public interface LetterService {
 
     LetterDto findByLetterNo(Integer letterNo);
 
-    Page<LetterDto> findAllFields(Date date,
-                                  String contains,
-                                  Integer pageSize,
-                                  Integer pageNumber,
-                                  String[] sortBy);
+    Page<LetterDto> findByDate(Date date,
+                               Integer pageSize,
+                               Integer pageNumber,
+                               String[] sortBy);
+
+    Page<LetterDto> findByFromDepartment(Integer id,
+                                         Integer pageSize,
+                                         Integer pageNumber,
+                                         String[] sortBy);
+
+    Page<LetterDto> findByToDepartment(Integer id,
+                                       Integer pageSize,
+                                       Integer pageNumber,
+                                       String[] sortBy);
+
+    Page<LetterDto> findByCreatedBy(String createdBy,
+                                    Integer pageSize,
+                                    Integer pageNumber,
+                                    String[] sortBy);
 
     LetterDto save(LetterDto letterDto);
 

@@ -33,13 +33,36 @@ public class LetterController {
         return ResponseEntity.ok(letterService.findByLetterNo(no));
     }
 
-    @GetMapping("/allFields/{contains}")
-    public ResponseEntity<Page<LetterDto>> findAllFields(@PathVariable(value = "contains") String contains,
-                                                         @RequestParam(name = "date", required = false) Date date,
-                                                         @RequestParam(name = "pageSize", required = false) Integer pageSize,
-                                                         @RequestParam(name = "pageNumber", required = true) Integer pageNumber,
-                                                         @RequestParam(name = "sortBy", required = false) String[] sortBy){
-        return ResponseEntity.ok(letterService.findAllFields(date, contains, pageSize, pageNumber, sortBy));
+    @GetMapping("letters/date")
+    public ResponseEntity<Page<LetterDto>> findByDate(@RequestParam Date date,
+                                                      @RequestParam(name = "pageSize", required = false) Integer pageSize,
+                                                      @RequestParam(name = "pageNumber", required = true) Integer pageNumber,
+                                                      @RequestParam(name = "sortBy", required = false) String[] sortBy){
+        return ResponseEntity.ok(letterService.findByDate(date, pageSize, pageNumber, sortBy));
+    }
+
+    @GetMapping("letters/from/{id}")
+    public ResponseEntity<Page<LetterDto>> findByFromDepartment(@PathVariable Integer id,
+                                                                @RequestParam(name = "pageSize", required = false) Integer pageSize,
+                                                                @RequestParam(name = "pageNumber", required = true) Integer pageNumber,
+                                                                @RequestParam(name = "sortBy", required = false) String[] sortBy){
+        return ResponseEntity.ok(letterService.findByFromDepartment(id, pageSize, pageNumber, sortBy));
+    }
+
+    @GetMapping("letters/to/{id}")
+    public ResponseEntity<Page<LetterDto>> findByToDepartment(@PathVariable Integer id,
+                                                              @RequestParam(name = "pageSize", required = false) Integer pageSize,
+                                                              @RequestParam(name = "pageNumber", required = true) Integer pageNumber,
+                                                              @RequestParam(name = "sortBy", required = false) String[] sortBy){
+        return ResponseEntity.ok(letterService.findByToDepartment(id, pageSize, pageNumber, sortBy));
+    }
+
+    @GetMapping("letters/createdBy")
+    public ResponseEntity<Page<LetterDto>> findByCreatedBy(@RequestParam String createdBy,
+                                                           @RequestParam(name = "pageSize", required = false) Integer pageSize,
+                                                           @RequestParam(name = "pageNumber", required = true) Integer pageNumber,
+                                                           @RequestParam(name = "sortBy", required = false) String[] sortBy){
+       return ResponseEntity.ok(letterService.findByCreatedBy(createdBy, pageSize, pageNumber, sortBy));
     }
 
     @PostMapping("/letters")

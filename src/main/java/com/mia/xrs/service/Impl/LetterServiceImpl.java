@@ -58,21 +58,72 @@ public class LetterServiceImpl implements LetterService {
     }
 
     @Override
-    public Page<LetterDto> findAllFields(Date date,
-                                         String contains,
-                                         Integer pageSize,
-                                         Integer pageNumber,
-                                         String[] sortBy) {
-
+    public Page<LetterDto> findByDate(Date date,
+                                      Integer pageSize,
+                                      Integer pageNumber,
+                                      String[] sortBy) {
         int defaultPageSize = 10;
         String[] defaultSortBy = {"letterNo"};
 
         pageSize = (pageSize == null) ? defaultPageSize : pageSize;
         sortBy = (sortBy == null) ? defaultSortBy : sortBy;
 
-        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.DESC, sortBy));
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.ASC, sortBy));
 
-        return letterRepository.findByDateAndCreatedByAndFromDepartmentOrToDepartmentAndStatus(date, contains, true, pageable)
+
+        return letterRepository.findByDateAndStatus(date, true, pageable)
+                .map(letterMapper::toDto);
+    }
+
+    @Override
+    public Page<LetterDto> findByFromDepartment(Integer id,
+                                                Integer pageSize,
+                                                Integer pageNumber,
+                                                String[] sortBy) {
+        int defaultPageSize = 10;
+        String[] defaultSortBy = {"fromDepartment"};
+
+        pageSize = (pageSize == null) ? defaultPageSize : pageSize;
+        sortBy = (sortBy == null) ? defaultSortBy : sortBy;
+
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.ASC, sortBy));
+
+        return letterRepository.findByFromDepartmentAndStatus(id,true, pageable)
+                .map(letterMapper::toDto);
+    }
+
+    @Override
+    public Page<LetterDto> findByToDepartment(Integer id,
+                                              Integer pageSize,
+                                              Integer pageNumber,
+                                              String[] sortBy) {
+
+        int defaultPageSize = 10;
+        String[] defaultSortBy = {"toDepartment"};
+
+        pageSize = (pageSize == null) ? defaultPageSize : pageSize;
+        sortBy = (sortBy == null) ? defaultSortBy : sortBy;
+
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.ASC, sortBy));
+
+        return letterRepository.findByToDepartmentAndStatus(id,true, pageable)
+                .map(letterMapper::toDto);
+    }
+
+    @Override
+    public Page<LetterDto> findByCreatedBy(String createdBy,
+                                           Integer pageSize,
+                                           Integer pageNumber,
+                                           String[] sortBy) {
+        int defaultPageSize = 10;
+        String[] defaultSortBy = {"createdBy"};
+
+        pageSize = (pageSize == null) ? defaultPageSize : pageSize;
+        sortBy = (sortBy == null) ? defaultSortBy : sortBy;
+
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.ASC, sortBy));
+
+        return letterRepository.findByCreatedByAndStatus(createdBy, true, pageable)
                 .map(letterMapper::toDto);
     }
 
@@ -98,7 +149,7 @@ public class LetterServiceImpl implements LetterService {
 
         letter.setImportanceDegree(letterDto.getImportanceDegree());
 
-        if (letterDto.getEnvelope() == null){
+        if (letterDto.getEnvelope() == null) {
             letterDto.setEnvelope(1);
         }
 
@@ -114,9 +165,9 @@ public class LetterServiceImpl implements LetterService {
 
     @Override
     @Transactional
-    public LetterDto update(Integer id,LetterDto letterDto) {
+    public LetterDto update(Integer id, LetterDto letterDto) {
 
-        Letter letter = letterRepository.findByIdAndStatus(id,true)
+        Letter letter = letterRepository.findByIdAndStatus(id, true)
                 .orElseThrow(() -> new RuntimeException("Letter by id : " + id + " not found"));
         letter.setStatus(false);
 
@@ -128,7 +179,7 @@ public class LetterServiceImpl implements LetterService {
         newLetter.setLetterNo(letterDto.getLetterNo());
         newLetter.setDate(letterDto.getDate());
 
-        if (letterDto.getEnvelope() == null){
+        if (letterDto.getEnvelope() == null) {
             letterDto.setEnvelope(1);
         }
 
