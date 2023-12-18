@@ -28,4 +28,6 @@ public class RejectDto {
     private String returnerSignature;
 
     private String receiverSignature;
+
+    private Integer uniqueId;
 }

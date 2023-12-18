@@ -1,10 +1,14 @@
 package com.mia.xrs.service.Impl;
 
 import com.mia.xrs.dto.RejectDto;
+import com.mia.xrs.entity.Department;
+import com.mia.xrs.entity.Letter;
 import com.mia.xrs.entity.Reject;
+import com.mia.xrs.entity.User;
 import com.mia.xrs.mapper.impl.RejectMapper;
 import com.mia.xrs.repository.RejectRepository;
 import com.mia.xrs.service.RejectService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -41,5 +45,28 @@ public class RejectServiceImpl implements RejectService {
                 .orElseThrow(() -> new RuntimeException("Reject by id : " + id + " not found"));
 
         return rejectMapper.toDto(reject);
+    }
+
+    @Override
+    @Transactional
+    public RejectDto save(RejectDto rejectDto) {
+        return null;
+    }
+
+    @Override
+    @Transactional
+    public RejectDto update(Integer id, RejectDto rejectDto) {
+        return null;
+    }
+
+    @Override
+    @Transactional
+    public void delete(Integer id) {
+        Reject reject = rejectRepository.findByIdAndStatus(id, true)
+                .orElseThrow(() -> new RuntimeException("Reject by id : " + id + " not found"));
+
+        reject.setStatus(false);
+        rejectRepository.save(reject);
+
     }
 }

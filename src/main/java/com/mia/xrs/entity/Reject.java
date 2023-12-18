@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
 
@@ -24,11 +26,17 @@ public class Reject {
 
     private Timestamp returnDate;
 
+    private Integer uniqueId;
+
+
     @OneToOne
     @JoinColumn(name = "letter_id")
     private Letter letter;
 
     private String rejectReason;
+
+    @Column(columnDefinition = "BOOLEAN DEFAULT true")
+    private Boolean status;
 
     @ManyToOne
     @JoinColumn(name="returner_id")
@@ -41,4 +49,11 @@ public class Reject {
     private String returnerSignature;
 
     private String receiverSignature;
+
+    @CreationTimestamp
+    @Column(updatable = false, columnDefinition = "TIMESTAMP DEFAULT now()")
+    private Timestamp createdAt;
+
+    @UpdateTimestamp
+    private Timestamp updatedAt;
 }
