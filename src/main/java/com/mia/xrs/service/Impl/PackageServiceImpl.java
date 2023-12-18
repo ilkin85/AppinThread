@@ -6,6 +6,7 @@ import com.mia.xrs.entity.Department;
 import com.mia.xrs.entity.Form;
 import com.mia.xrs.entity.Letter;
 import com.mia.xrs.entity.Package;
+import com.mia.xrs.exception.NotFoundException;
 import com.mia.xrs.mapper.impl.LetterMapper;
 import com.mia.xrs.mapper.impl.PackageMapper;
 import com.mia.xrs.repository.DepartmentRepository;
@@ -68,9 +69,9 @@ public class PackageServiceImpl implements PackageService {
 //                letter.setStatus(true);
 //                letter.setAPackage(aPackage);
 //                letter.setFromDepartment(departmentRepository.findById(letterDto.getFromDepartment().getId())
-//                        .orElseThrow(()-> new RuntimeException("Letter by id : " + letterDto.getFromDepartment().getId()+ " not found")));
+//                        .orElseThrow(()-> new NotFoundException("Letter by id : " + letterDto.getFromDepartment().getId()+ " not found")));
 //                letter.setToDepartment(departmentRepository.findById(letterDto.getToDepartment().getId())
-//                        .orElseThrow(()-> new RuntimeException("Letter by id : " + letterDto.getToDepartment().getId()+ " not found")));
+//                        .orElseThrow(()-> new NotFoundException("Letter by id : " + letterDto.getToDepartment().getId()+ " not found")));
 //                letter.setLetterNo(letterDto.getLetterNo());
 //                letter.setParcel(letterDto.getParcel());
 //                letter.setDate(letterDto.getDate());
@@ -92,7 +93,7 @@ public class PackageServiceImpl implements PackageService {
     @Transactional
     public PackageDto update(Integer id, PackageDto packageDto) {
         Package aPackage = packageRepository.findByIdAndStatus(id,true)
-                .orElseThrow(() -> new RuntimeException("Package by id : " + id + " not found"));
+                .orElseThrow(() -> new NotFoundException("Package by id : " + id + " not found"));
 
         aPackage.setStatus(false);
 
@@ -109,7 +110,7 @@ public class PackageServiceImpl implements PackageService {
 
 
         newPackage.setForm(formRepository.findById(aPackage.getForm().getId())
-                .orElseThrow(() -> new RuntimeException("Salam by id : " + id + " not found")));
+                .orElseThrow(() -> new NotFoundException("Salam by id : " + id + " not found")));
 
 
         List<Letter> letters = new ArrayList<>();

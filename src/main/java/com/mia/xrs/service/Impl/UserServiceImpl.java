@@ -6,6 +6,7 @@ import com.mia.xrs.entity.Department;
 import com.mia.xrs.entity.Role;
 import com.mia.xrs.entity.User;
 import com.mia.xrs.entity.UserSpecification;
+import com.mia.xrs.exception.NotFoundException;
 import com.mia.xrs.repository.DepartmentRepository;
 import com.mia.xrs.repository.RoleRepository;
 import com.mia.xrs.repository.UserRepository;
@@ -41,7 +42,7 @@ public class UserServiceImpl implements UserService {
         userSpecification.setRank(userDto.getRank());
 
         Department department = departmentRepository.findById(userDto.getDepartment().getId())
-                .orElseThrow(() -> new RuntimeException("Department by id : " + userDto.getDepartment().getId() + " not found"));
+                .orElseThrow(() -> new NotFoundException("Department by id : " + userDto.getDepartment().getId() + " not found"));
 
         userSpecification.setDepartment(department);
         userSpecificationRepository.save(userSpecification);

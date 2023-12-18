@@ -3,6 +3,7 @@ package com.mia.xrs.service.Impl;
 import com.mia.xrs.dto.LetterDto;
 import com.mia.xrs.entity.Department;
 import com.mia.xrs.entity.Letter;
+import com.mia.xrs.exception.NotFoundException;
 import com.mia.xrs.mapper.impl.LetterMapper;
 import com.mia.xrs.repository.DepartmentRepository;
 import com.mia.xrs.repository.LetterRepository;
@@ -44,7 +45,7 @@ public class LetterServiceImpl implements LetterService {
     public LetterDto findById(Integer id) {
 
         Letter letter = letterRepository.findByIdAndStatus(id, true)
-                .orElseThrow(() -> new RuntimeException("Letter by id : " + id + " not found"));
+                .orElseThrow(() -> new NotFoundException("Letter by id : " + id + " not found"));
 
         return letterMapper.toDto(letter);
     }
@@ -139,10 +140,10 @@ public class LetterServiceImpl implements LetterService {
         letter.setCreatedAt(null);
 
         Department fromDepartment = departmentRepository.findById(letterDto.getFromDepartment().getId())
-                .orElseThrow(() -> new RuntimeException("Department by ID: " + letterDto.getFromDepartment().getId() + " not found"));
+                .orElseThrow(() -> new NotFoundException("Department by ID: " + letterDto.getFromDepartment().getId() + " not found"));
 
         Department toDepartment = departmentRepository.findById(letterDto.getToDepartment().getId())
-                .orElseThrow(() -> new RuntimeException("Department by ID: " + letterDto.getToDepartment().getId() + " not found"));
+                .orElseThrow(() -> new NotFoundException("Department by ID: " + letterDto.getToDepartment().getId() + " not found"));
 
         letter.setFromDepartment(fromDepartment);
         letter.setToDepartment(toDepartment);
@@ -168,7 +169,7 @@ public class LetterServiceImpl implements LetterService {
     public LetterDto update(Integer id, LetterDto letterDto) {
 
         Letter letter = letterRepository.findByIdAndStatus(id, true)
-                .orElseThrow(() -> new RuntimeException("Letter by id : " + id + " not found"));
+                .orElseThrow(() -> new NotFoundException("Letter by id : " + id + " not found"));
         letter.setStatus(false);
 
         Letter newLetter = new Letter();
@@ -189,12 +190,12 @@ public class LetterServiceImpl implements LetterService {
         newLetter.setNote(letterDto.getNote());
 
         Department fromDepartment = departmentRepository.findById(letterDto.getFromDepartment().getId())
-                .orElseThrow(() -> new RuntimeException("Department by id : " + id + " not found"));
+                .orElseThrow(() -> new NotFoundException("Department by id : " + id + " not found"));
 
         newLetter.setFromDepartment(fromDepartment);
 
         Department toDepartment = departmentRepository.findById(letterDto.getToDepartment().getId())
-                .orElseThrow(() -> new RuntimeException("Department by id : " + id + " not found"));
+                .orElseThrow(() -> new NotFoundException("Department by id : " + id + " not found"));
 
         newLetter.setToDepartment(toDepartment);
         newLetter.setCreatedBy(letter.getCreatedBy());
@@ -208,7 +209,7 @@ public class LetterServiceImpl implements LetterService {
     @Transactional
     public void delete(Integer id) {
         Letter letter = letterRepository.findByIdAndStatus(id, true)
-                .orElseThrow(() -> new RuntimeException("Letter by id : " + id + " not found"));
+                .orElseThrow(() -> new NotFoundException("Letter by id : " + id + " not found"));
 
         letter.setStatus(false);
         letterRepository.save(letter);

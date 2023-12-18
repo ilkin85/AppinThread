@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ErrorResponseDto {
+public class ErrorResponse {
 
     private LocalDateTime timestamp;
     private int status;

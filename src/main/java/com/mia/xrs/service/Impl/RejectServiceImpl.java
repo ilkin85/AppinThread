@@ -4,6 +4,7 @@ import com.mia.xrs.dto.RejectDto;
 import com.mia.xrs.entity.Letter;
 import com.mia.xrs.entity.Reject;
 import com.mia.xrs.entity.User;
+import com.mia.xrs.exception.NotFoundException;
 import com.mia.xrs.mapper.impl.RejectMapper;
 import com.mia.xrs.repository.LetterRepository;
 import com.mia.xrs.repository.RejectRepository;
@@ -43,7 +44,7 @@ public class RejectServiceImpl implements RejectService {
     @Override
     public RejectDto findById(Integer id) {
         Reject reject = rejectRepository.findByIdAndStatus(id, true)
-                .orElseThrow(() -> new RuntimeException("Reject by id : " + id + " not found"));
+                .orElseThrow(() -> new NotFoundException("Reject by id : " + id + " not found"));
 
         return rejectMapper.toDto(reject);
     }
@@ -61,13 +62,13 @@ public class RejectServiceImpl implements RejectService {
         reject.setCreatedAt(null);
 
         User receive = userRepository.findById(rejectDto.getReceiver().getId())
-                .orElseThrow(() -> new RuntimeException("Receiver by id: " + rejectDto.getReceiver().getId() + "not found"));
+                .orElseThrow(() -> new NotFoundException("Receiver by id: " + rejectDto.getReceiver().getId() + "not found"));
 
         User returner = userRepository.findById(rejectDto.getReturner().getId())
-                .orElseThrow(() -> new RuntimeException("Returner by id: " + rejectDto.getReturner().getId() + "not found"));
+                .orElseThrow(() -> new NotFoundException("Returner by id: " + rejectDto.getReturner().getId() + "not found"));
 
         Letter letter = letterRepository.findById(rejectDto.getLetter().getId())
-                        .orElseThrow(() -> new RuntimeException("Letter by id: " + rejectDto.getLetter().getId() + "not found"));
+                        .orElseThrow(() -> new NotFoundException("Letter by id: " + rejectDto.getLetter().getId() + "not found"));
 
         reject.setLetter(letter);
         reject.setReturner(returner);
@@ -86,7 +87,7 @@ public class RejectServiceImpl implements RejectService {
     public RejectDto update(Integer id, RejectDto rejectDto) {
 
         Reject oldReject = rejectRepository.findByIdAndStatus(id, true)
-                .orElseThrow(() -> new RuntimeException("Reject by id: " + id + "not found"));
+                .orElseThrow(() -> new NotFoundException("Reject by id: " + id + "not found"));
         oldReject.setStatus(false);
 
         Reject newReject = new Reject();
@@ -98,13 +99,13 @@ public class RejectServiceImpl implements RejectService {
         newReject.setRejectReason(rejectDto.getRejectReason());
 
         User receive = userRepository.findById(rejectDto.getReceiver().getId())
-                .orElseThrow(() -> new RuntimeException("Receiver by id: " + rejectDto.getReceiver().getId() + "not found"));
+                .orElseThrow(() -> new NotFoundException("Receiver by id: " + rejectDto.getReceiver().getId() + "not found"));
 
         User returner = userRepository.findById(rejectDto.getReturner().getId())
-                .orElseThrow(() -> new RuntimeException("Returner by id: " + rejectDto.getReturner().getId() + "not found"));
+                .orElseThrow(() -> new NotFoundException("Returner by id: " + rejectDto.getReturner().getId() + "not found"));
 
         Letter letter = letterRepository.findById(rejectDto.getLetter().getId())
-                .orElseThrow(() -> new RuntimeException("Letter by id: " + rejectDto.getLetter().getId() + "not found"));
+                .orElseThrow(() -> new NotFoundException("Letter by id: " + rejectDto.getLetter().getId() + "not found"));
 
         newReject.setReturner(returner);
         newReject.setReceiver(receive);
@@ -122,7 +123,7 @@ public class RejectServiceImpl implements RejectService {
     @Transactional
     public void delete(Integer id) {
         Reject reject = rejectRepository.findByIdAndStatus(id, true)
-                .orElseThrow(() -> new RuntimeException("Reject by id : " + id + " not found"));
+                .orElseThrow(() -> new NotFoundException("Reject by id : " + id + " not found"));
 
         reject.setStatus(false);
         rejectRepository.save(reject);
