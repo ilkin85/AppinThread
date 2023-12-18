@@ -23,5 +23,4 @@ public interface PackageRepository extends JpaRepository<Package,Integer> {
 
     @Query("SELECT COUNT(l) FROM Package p JOIN p.letters l WHERE p.packageNo = :packageNo AND l.status = :status")
     Integer countByLetterAndStatus(@Param("packageNo") Integer packageNo, @Param("status") Boolean status);
-
 }

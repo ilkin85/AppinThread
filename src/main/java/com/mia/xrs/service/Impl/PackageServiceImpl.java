@@ -2,12 +2,9 @@ package com.mia.xrs.service.Impl;
 
 import com.mia.xrs.dto.LetterDto;
 import com.mia.xrs.dto.PackageDto;
-import com.mia.xrs.entity.Department;
-import com.mia.xrs.entity.Form;
 import com.mia.xrs.entity.Letter;
 import com.mia.xrs.entity.Package;
 import com.mia.xrs.exception.NotFoundException;
-import com.mia.xrs.mapper.impl.LetterMapper;
 import com.mia.xrs.mapper.impl.PackageMapper;
 import com.mia.xrs.repository.DepartmentRepository;
 import com.mia.xrs.repository.FormRepository;
@@ -25,12 +22,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PackageServiceImpl implements PackageService {
 
-    private final LetterRepository letterRepository;
     private final PackageRepository packageRepository;
-    private final DepartmentRepository departmentRepository;
+    private final LetterRepository letterRepository;
     private final FormRepository formRepository;
     private final PackageMapper packageMapper;
-
 
     @Override
     @Transactional
@@ -48,42 +43,19 @@ public class PackageServiceImpl implements PackageService {
         aPackage.setSenderSignature(packageDto.getSenderSignature());
 
         aPackage.setForm(formRepository.findById(packageDto.getForm().getId())
-                .orElseThrow());
+                .orElseThrow(()-> new NotFoundException("Package by id : " + packageDto.getForm().getId() + " not found")));
 
         List<Letter> letters = new ArrayList<>();
-
         Letter letter;
         for (LetterDto letterDto : packageDto.getLetters()){
             letter = letterRepository.findByIdAndStatus(letterDto.getId(), true)
-                    .orElseThrow();
+                    .orElseThrow(()-> new NotFoundException("Letter by id : " + letterDto.getId() + " not found"));
             letters.add(letter);
         }
 
         aPackage.setLetters(letters);
         aPackage.setLetterCount(aPackage.getLetters().size());
-////        Letter letter = new Letter();
-//        letter.setSerialNo(0);
 
-//            for (LetterDto letterDto : packageDto.getLetters()) {
-//                letter.setId(null);
-//                letter.setStatus(true);
-//                letter.setAPackage(aPackage);
-//                letter.setFromDepartment(departmentRepository.findById(letterDto.getFromDepartment().getId())
-//                        .orElseThrow(()-> new NotFoundException("Letter by id : " + letterDto.getFromDepartment().getId()+ " not found")));
-//                letter.setToDepartment(departmentRepository.findById(letterDto.getToDepartment().getId())
-//                        .orElseThrow(()-> new NotFoundException("Letter by id : " + letterDto.getToDepartment().getId()+ " not found")));
-//                letter.setLetterNo(letterDto.getLetterNo());
-//                letter.setParcel(letterDto.getParcel());
-//                letter.setDate(letterDto.getDate());
-//                letter.setNote(letterDto.getNote());
-//                letter.setEnvelope(letterDto.getEnvelope());
-//                letter.setUniqueId(letterRepository.findByMaxUniqueId() + 1);
-//                letter.setSerialNo(letter.getSerialNo() + 1);
-//                letter.setImportanceDegree(letterDto.getImportanceDegree());
-//                letters.add(letter);
-//            }
-
-//        letterRepository.save(letter);
         Package save = packageRepository.save(aPackage);
 
         return packageMapper.toDto(save);
@@ -92,9 +64,9 @@ public class PackageServiceImpl implements PackageService {
     @Override
     @Transactional
     public PackageDto update(Integer id, PackageDto packageDto) {
+
         Package aPackage = packageRepository.findByIdAndStatus(id,true)
                 .orElseThrow(() -> new NotFoundException("Package by id : " + id + " not found"));
-
         aPackage.setStatus(false);
 
         Package newPackage = new Package();
@@ -102,34 +74,26 @@ public class PackageServiceImpl implements PackageService {
         newPackage.setUniqueId(aPackage.getUniqueId());
         newPackage.setStatus(true);
         newPackage.setCreatedAt(null);
-        newPackage.setPackageNo(packageDto.getPackageNo());
-
-
-        newPackage.setLetterCount(packageRepository.countByLetterAndStatus(packageDto.getPackageNo(), true)+1);
-
-
-
         newPackage.setForm(formRepository.findById(aPackage.getForm().getId())
-                .orElseThrow(() -> new NotFoundException("Salam by id : " + id + " not found")));
-
+                .orElseThrow(() -> new NotFoundException("Form by id : " + id + " not found")));
+        newPackage.setPackageNo(packageDto.getPackageNo());
+        newPackage.setSentDate(packageDto.getSentDate());
+        newPackage.setReceiveDate(packageDto.getReceiveDate());
+        newPackage.setReceiverSignature(packageDto.getReceiverSignature());
+        newPackage.setSenderSignature(packageDto.getSenderSignature());
 
         List<Letter> letters = new ArrayList<>();
-
         Letter letter;
         for (LetterDto letterDto : packageDto.getLetters()){
-
-             letter = letterRepository.findByIdAndStatus(letterDto.getId(), true).orElseThrow();
-
+             letter = letterRepository.findByIdAndStatus(letterDto.getId(), true)
+                     .orElseThrow(()-> new NotFoundException("Letter by id : " + letterDto.getId() + " not found"));
             letters.add(letter);
         }
-
         newPackage.setLetters(letters);
+        newPackage.setLetterCount(newPackage.getLetters().size());
 
         Package save = packageRepository.save(newPackage);
 
-
         return packageMapper.toDto(save);
     }
-
-
 }
