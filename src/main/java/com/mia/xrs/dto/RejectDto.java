@@ -3,7 +3,6 @@ package com.mia.xrs.dto;
 import lombok.*;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 
 @Getter
 @Setter

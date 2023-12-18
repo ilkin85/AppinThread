@@ -21,6 +21,4 @@ public class Handler {
         );
         return errorResponse;
     }
-
-
 }

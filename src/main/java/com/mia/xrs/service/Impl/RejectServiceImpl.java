@@ -29,6 +29,7 @@ public class RejectServiceImpl implements RejectService {
 
     @Override
     public Page<RejectDto> findAllPage(Integer pageSize, Integer pageNumber, String[] sortBy) {
+
         int defaultPageSize = 10;
         String[] defaultSortBy = {"rejectNo"};
 
@@ -43,6 +44,7 @@ public class RejectServiceImpl implements RejectService {
 
     @Override
     public RejectDto findById(Integer id) {
+
         Reject reject = rejectRepository.findByIdAndStatus(id, true)
                 .orElseThrow(() -> new NotFoundException("Reject by id : " + id + " not found"));
 
@@ -53,6 +55,7 @@ public class RejectServiceImpl implements RejectService {
     @Override
     @Transactional
     public RejectDto save(RejectDto rejectDto) {
+
         Reject reject = new Reject();
         reject.setId(null);
         reject.setStatus(true);
@@ -122,11 +125,11 @@ public class RejectServiceImpl implements RejectService {
     @Override
     @Transactional
     public void delete(Integer id) {
+
         Reject reject = rejectRepository.findByIdAndStatus(id, true)
                 .orElseThrow(() -> new NotFoundException("Reject by id : " + id + " not found"));
 
         reject.setStatus(false);
         rejectRepository.save(reject);
-
     }
 }
