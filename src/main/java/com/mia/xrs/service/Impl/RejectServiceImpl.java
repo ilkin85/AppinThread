@@ -1,9 +1,11 @@
 package com.mia.xrs.service.Impl;
 
 import com.mia.xrs.dto.RejectDto;
+import com.mia.xrs.entity.Letter;
 import com.mia.xrs.entity.Reject;
 import com.mia.xrs.entity.User;
 import com.mia.xrs.mapper.impl.RejectMapper;
+import com.mia.xrs.repository.LetterRepository;
 import com.mia.xrs.repository.RejectRepository;
 import com.mia.xrs.repository.UserRepository;
 import com.mia.xrs.service.RejectService;
@@ -22,6 +24,8 @@ public class RejectServiceImpl implements RejectService {
     private final RejectMapper rejectMapper;
 
     private final UserRepository userRepository;
+
+    private final LetterRepository letterRepository;
 
     private final RejectRepository rejectRepository;
 
@@ -58,6 +62,7 @@ public class RejectServiceImpl implements RejectService {
         reject.setUniqueId(rejectRepository.findByMaxUniqueId() + 1);
         reject.setRouteNo(rejectDto.getRouteNo());
         reject.setCreatedAt(null);
+        reject.setReturnDate(rejectDto.getReturnDate());
 
         User receive = userRepository.findById(rejectDto.getReceiver().getId())
                 .orElseThrow(() -> new RuntimeException("Receiver by id: " + rejectDto.getReceiver().getId() + "not found"));
@@ -65,6 +70,10 @@ public class RejectServiceImpl implements RejectService {
         User returner = userRepository.findById(rejectDto.getReturner().getId())
                 .orElseThrow(() -> new RuntimeException("Returner by id: " + rejectDto.getReturner().getId() + "not found"));
 
+        Letter letter = letterRepository.findById(rejectDto.getLetter().getId())
+                        .orElseThrow(() -> new RuntimeException("Letter by id: " + rejectDto.getLetter().getId() + "not found"));
+
+        reject.setLetter(letter);
         reject.setReturner(returner);
         reject.setReceiver(receive);
         reject.setRejectReason(rejectDto.getRejectReason());
@@ -80,7 +89,38 @@ public class RejectServiceImpl implements RejectService {
     @Override
     @Transactional
     public RejectDto update(Integer id, RejectDto rejectDto) {
-        return null;
+
+        Reject oldReject = rejectRepository.findByIdAndStatus(id, true)
+                .orElseThrow(() -> new RuntimeException("Reject by id: " + id + "not found"));
+        oldReject.setStatus(false);
+
+        Reject newReject = new Reject();
+        newReject.setId(null);
+        newReject.setStatus(true);
+        newReject.setUniqueId(oldReject.getUniqueId());
+        newReject.setCreatedAt(null);
+        newReject.setRouteNo(rejectDto.getRouteNo());
+        newReject.setRejectReason(rejectDto.getRejectReason());
+
+        User receive = userRepository.findById(rejectDto.getReceiver().getId())
+                .orElseThrow(() -> new RuntimeException("Receiver by id: " + rejectDto.getReceiver().getId() + "not found"));
+
+        User returner = userRepository.findById(rejectDto.getReturner().getId())
+                .orElseThrow(() -> new RuntimeException("Returner by id: " + rejectDto.getReturner().getId() + "not found"));
+
+        Letter letter = letterRepository.findById(rejectDto.getLetter().getId())
+                .orElseThrow(() -> new RuntimeException("Letter by id: " + rejectDto.getLetter().getId() + "not found"));
+
+        newReject.setReturner(returner);
+        newReject.setReceiver(receive);
+        newReject.setLetter(letter);
+        newReject.setReturnerSignature(rejectDto.getReturnerSignature());
+        newReject.setReceiverSignature(rejectDto.getReceiverSignature());
+        newReject.setReturnDate(rejectDto.getReturnDate());
+
+        Reject save = rejectRepository.save(newReject);
+
+        return rejectMapper.toDto(newReject);
     }
 
     @Override
