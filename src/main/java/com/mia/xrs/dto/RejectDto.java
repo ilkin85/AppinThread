@@ -13,6 +13,8 @@ public class RejectDto {
 
     private Integer id;
 
+    private Integer uniqueId;
+
     private String routeNo;
 
     private Timestamp returnDate;
@@ -28,6 +30,4 @@ public class RejectDto {
     private String returnerSignature;
 
     private String receiverSignature;
-
-    private Integer uniqueId;
 }

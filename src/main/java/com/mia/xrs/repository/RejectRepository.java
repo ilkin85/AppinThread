@@ -19,8 +19,8 @@ public interface RejectRepository extends JpaRepository<Reject,Integer> {
 
     Optional<Reject> findByIdAndStatus(Integer id, Boolean status);
 
-    @Query("SELECT r FROM Reject r WHERE r.rejectNo = :rejectNo AND r.status = :status")
-    Letter findByRejectNoAndStatus(@Param("rejectNo") Integer rejectNo, @Param("status") Boolean status);
+    @Query("SELECT r FROM Reject r WHERE r.routeNo = :routeNo AND r.status = :status")
+    Letter findByRejectNoAndStatus(@Param("routeNo") Integer routeNo, @Param("status") Boolean status);
 
 
 }

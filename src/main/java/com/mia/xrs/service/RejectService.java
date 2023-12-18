@@ -1,6 +1,5 @@
 package com.mia.xrs.service;
 
-import com.mia.xrs.dto.LetterDto;
 import com.mia.xrs.dto.RejectDto;
 import org.springframework.data.domain.Page;
 
