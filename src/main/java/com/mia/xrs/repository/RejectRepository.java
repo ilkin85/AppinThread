@@ -12,7 +12,7 @@ import java.util.Optional;
 
 public interface RejectRepository extends JpaRepository<Reject,Integer> {
 
-    @Query("SELECT COALESCE(MAX(l.uniqueId), 0) FROM Reject r")
+    @Query("SELECT COALESCE(MAX(r.uniqueId), 0) FROM Reject r")
     Integer findByMaxUniqueId();
 
     Page<Reject> findByStatus(Boolean status, Pageable pageable);
