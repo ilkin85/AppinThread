@@ -67,6 +67,15 @@ public class Letter {
     @ManyToOne
     private User updatedBy;
 
+    @PrePersist
+    public void prePersist() {
+        setCreatedBy(getAuthenticatedUser());
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        setUpdatedBy(getAuthenticatedUser());
+    }
 
     private User getAuthenticatedUser() {
 
