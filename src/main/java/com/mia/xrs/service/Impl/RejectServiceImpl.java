@@ -22,13 +22,9 @@ import org.springframework.stereotype.Service;
 public class RejectServiceImpl implements RejectService {
 
     private final RejectMapper rejectMapper;
-
     private final UserRepository userRepository;
-
     private final LetterRepository letterRepository;
-
     private final RejectRepository rejectRepository;
-
 
     @Override
     public Page<RejectDto> findAllPage(Integer pageSize, Integer pageNumber, String[] sortBy) {
@@ -61,8 +57,8 @@ public class RejectServiceImpl implements RejectService {
         reject.setStatus(true);
         reject.setUniqueId(rejectRepository.findByMaxUniqueId() + 1);
         reject.setRouteNo(rejectDto.getRouteNo());
-        reject.setCreatedAt(null);
         reject.setReturnDate(rejectDto.getReturnDate());
+        reject.setCreatedAt(null);
 
         User receive = userRepository.findById(rejectDto.getReceiver().getId())
                 .orElseThrow(() -> new RuntimeException("Receiver by id: " + rejectDto.getReceiver().getId() + "not found"));
@@ -77,7 +73,6 @@ public class RejectServiceImpl implements RejectService {
         reject.setReturner(returner);
         reject.setReceiver(receive);
         reject.setRejectReason(rejectDto.getRejectReason());
-        reject.setRouteNo(rejectDto.getRouteNo());
         reject.setReceiverSignature(rejectDto.getReceiverSignature());
         reject.setReturnerSignature(rejectDto.getReturnerSignature());
 

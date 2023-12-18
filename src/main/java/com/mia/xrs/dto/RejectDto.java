@@ -2,6 +2,7 @@ package com.mia.xrs.dto;
 
 import lombok.*;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 @Getter
@@ -17,7 +18,7 @@ public class RejectDto {
 
     private String routeNo;
 
-    private Timestamp returnDate;
+    private Date returnDate;
 
     private LetterDto letter;
 

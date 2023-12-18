@@ -9,6 +9,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 @Entity
@@ -25,10 +26,9 @@ public class Reject {
 
     private String routeNo;
 
-    private Timestamp returnDate;
+    private Date returnDate;
 
     private Integer uniqueId;
-
 
     @OneToOne
     @JoinColumn(name = "letter_id")
