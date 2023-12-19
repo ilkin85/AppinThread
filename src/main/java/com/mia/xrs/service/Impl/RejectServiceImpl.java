@@ -51,7 +51,6 @@ public class RejectServiceImpl implements RejectService {
         return rejectMapper.toDto(reject);
     }
 
-
     @Override
     @Transactional
     public RejectDto save(RejectDto rejectDto) {
@@ -83,7 +82,6 @@ public class RejectServiceImpl implements RejectService {
         Reject save = rejectRepository.save(reject);
         return rejectMapper.toDto(save);
     }
-
 
     @Override
     @Transactional
