@@ -5,6 +5,7 @@ import com.mia.xrs.dto.RejectDto;
 import org.springframework.data.domain.Page;
 
 import java.sql.Date;
+import java.util.Optional;
 
 public interface RejectService {
 
@@ -21,7 +22,7 @@ public interface RejectService {
                                Integer pageNumber,
                                String[] sortBy);
 
-    RejectDto findByLetterNo(Integer letterNo);
+//    Optional<RejectDto> findByLetterNo(Integer letterNo, Boolean status);
 
     RejectDto save(RejectDto rejectDto);
 

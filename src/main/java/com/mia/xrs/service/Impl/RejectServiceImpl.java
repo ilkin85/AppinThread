@@ -1,5 +1,6 @@
 package com.mia.xrs.service.Impl;
 
+import com.mia.xrs.dto.LetterDto;
 import com.mia.xrs.dto.RejectDto;
 import com.mia.xrs.entity.Letter;
 import com.mia.xrs.entity.Reject;
@@ -19,6 +20,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -77,12 +79,17 @@ public class RejectServiceImpl implements RejectService {
                 .map(rejectMapper::toDto);
     }
 
-    @Override
-    public RejectDto findByLetterNo(Integer letterNo) {
-//        Letter letter = rejectRepository.findByLetterNoAndStatus(letterNo, true);
+//    @Override
+//    public Optional<RejectDto> findByLetterNo(Integer letterNo, Boolean status) {
+//        Letter letter = rejectRepository.findByLetterNoAndStatus(letterNo, true)
+//                .orElseThrow(() -> new NotFoundException("Letter by letterNo: " + letterNo + "not found"));
+//
+//        Reject reject = rejectRepository.findByLetterNoAndStatus(letter, status);
+//
+//        return rejectMapper.toDto(reject);
+//    }
 
-        return null;
-    }
+
 
     @Override
     @Transactional
@@ -103,7 +110,7 @@ public class RejectServiceImpl implements RejectService {
                 .orElseThrow(() -> new NotFoundException("Returner by id: " + rejectDto.getReturner().getId() + "not found"));
 
         Letter letter = letterRepository.findById(rejectDto.getLetter().getId())
-                        .orElseThrow(() -> new NotFoundException("Letter by id: " + rejectDto.getLetter().getId() + "not found"));
+                .orElseThrow(() -> new NotFoundException("Letter by id: " + rejectDto.getLetter().getId() + "not found"));
 
         reject.setLetter(letter);
         reject.setReturner(returner);
