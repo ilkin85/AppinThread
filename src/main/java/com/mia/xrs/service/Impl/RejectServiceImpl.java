@@ -18,6 +18,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+
 @Service
 @RequiredArgsConstructor
 public class RejectServiceImpl implements RejectService {
@@ -49,6 +51,26 @@ public class RejectServiceImpl implements RejectService {
                 .orElseThrow(() -> new NotFoundException("Reject by id : " + id + " not found"));
 
         return rejectMapper.toDto(reject);
+    }
+
+    @Override
+    public RejectDto findByRouteNo(String routeNo) {
+        Reject reject = rejectRepository.findByRouteNoAndStatus(routeNo, true);
+
+        return rejectMapper.toDto(reject);
+    }
+
+    @Override
+    public Page<RejectDto> findByReturnDate(Date date,
+                                            Integer pageSize,
+                                            Integer pageNumber,
+                                            String[] sortBy) {
+        return null;
+    }
+
+    @Override
+    public RejectDto findByLetterNo(Integer letterNo) {
+        return null;
     }
 
     @Override
