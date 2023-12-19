@@ -77,7 +77,7 @@ public class LetterServiceImpl implements LetterService {
     }
 
     @Override
-    public Page<LetterDto> findByFromDepartment(Integer id,
+    public Page<LetterDto> findByFromDepartment(String name,
                                                 Integer pageSize,
                                                 Integer pageNumber,
                                                 String[] sortBy) {
@@ -89,12 +89,12 @@ public class LetterServiceImpl implements LetterService {
 
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.ASC, sortBy));
 
-        return letterRepository.findByFromDepartmentAndStatus(id,true, pageable)
+        return letterRepository.findByFromDepartmentAndStatus(name,true, pageable)
                 .map(letterMapper::toDto);
     }
 
     @Override
-    public Page<LetterDto> findByToDepartment(Integer id,
+    public Page<LetterDto> findByToDepartment(String name,
                                               Integer pageSize,
                                               Integer pageNumber,
                                               String[] sortBy) {
@@ -107,7 +107,7 @@ public class LetterServiceImpl implements LetterService {
 
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.ASC, sortBy));
 
-        return letterRepository.findByToDepartmentAndStatus(id,true, pageable)
+        return letterRepository.findByToDepartmentAndStatus(name,true, pageable)
                 .map(letterMapper::toDto);
     }
 

@@ -2,6 +2,7 @@ package com.mia.xrs.dto;
 
 import lombok.*;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -22,9 +23,9 @@ public class PackageDto {
 
     private List<LetterDto> letters;
 
-    private Timestamp sentDate;
+    private Date sentDate;
 
-    private Timestamp receiveDate;
+    private Date receiveDate;
 
     private String senderSignature;
 

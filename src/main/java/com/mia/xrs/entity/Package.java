@@ -9,6 +9,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -30,9 +31,9 @@ public class Package {
     @Column(columnDefinition = "BOOLEAN DEFAULT true")
     private Boolean status;
 
-    private Timestamp sentDate;
+    private Date sentDate;
 
-    private Timestamp receiveDate;
+    private Date receiveDate;
 
     private String senderSignature;
 

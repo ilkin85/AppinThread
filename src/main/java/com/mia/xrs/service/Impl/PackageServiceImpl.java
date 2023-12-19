@@ -12,9 +12,14 @@ import com.mia.xrs.repository.LetterRepository;
 import com.mia.xrs.repository.PackageRepository;
 import com.mia.xrs.service.PackageService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +31,98 @@ public class PackageServiceImpl implements PackageService {
     private final LetterRepository letterRepository;
     private final FormRepository formRepository;
     private final PackageMapper packageMapper;
+
+    @Override
+    public Page<PackageDto> findAllPage(Integer pageSize, Integer pageNumber, String[] sortBy) {
+        int defaultPageSize = 10;
+        String[] defaultSortBy = {"packageNo"};
+
+        pageSize = (pageSize == null) ? defaultPageSize : pageSize;
+        sortBy = (sortBy == null) ? defaultSortBy : sortBy;
+
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.ASC, sortBy));
+
+        return packageRepository.findByStatus(true, pageable)
+                .map(packageMapper::toDto);
+    }
+
+    @Override
+    public PackageDto findById(Integer id) {
+        Package aPackage = packageRepository.findByIdAndStatus(id, true)
+                .orElseThrow(() -> new NotFoundException("Package by id : " + id + " not found"));
+
+        return packageMapper.toDto(aPackage);    }
+
+    @Override
+    public PackageDto findByPackageNo(Integer packageNo) {
+        Package aPackage = packageRepository.findByPackageNoAndStatus(packageNo, true);
+
+        return packageMapper.toDto(aPackage);    }
+
+    @Override
+    public Page<PackageDto> findByDate(Date sentDate,
+                                       Integer pageSize,
+                                       Integer pageNumber,
+                                       String[] sortBy) {
+        int defaultPageSize = 10;
+        String[] defaultSortBy = {"packageNo"};
+
+        pageSize = (pageSize == null) ? defaultPageSize : pageSize;
+        sortBy = (sortBy == null) ? defaultSortBy : sortBy;
+
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.ASC, sortBy));
+
+
+        return packageRepository.findBySentDateAndStatus(sentDate, true, pageable)
+                .map(packageMapper::toDto);    }
+
+    @Override
+    public Page<PackageDto> findByFromDepartment(String name,
+                                                 Integer pageSize,
+                                                 Integer pageNumber,
+                                                 String[] sortBy) {
+        int defaultPageSize = 10;
+        String[] defaultSortBy = {"fromDepartment"};
+
+        pageSize = (pageSize == null) ? defaultPageSize : pageSize;
+        sortBy = (sortBy == null) ? defaultSortBy : sortBy;
+
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.ASC, sortBy));
+
+        return packageRepository.findByFromDepartmentAndStatus(name,true, pageable)
+                .map(packageMapper::toDto);    }
+
+    @Override
+    public Page<PackageDto> findByToDepartment(String name,
+                                               Integer pageSize,
+                                               Integer pageNumber,
+                                               String[] sortBy) {
+        int defaultPageSize = 10;
+        String[] defaultSortBy = {"toDepartment"};
+
+        pageSize = (pageSize == null) ? defaultPageSize : pageSize;
+        sortBy = (sortBy == null) ? defaultSortBy : sortBy;
+
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.ASC, sortBy));
+
+        return packageRepository.findByToDepartmentAndStatus(name,true, pageable)
+                .map(packageMapper::toDto);    }
+
+    @Override
+    public Page<PackageDto> findByCreatedBy(String createdBy,
+                                            Integer pageSize,
+                                            Integer pageNumber,
+                                            String[] sortBy) {
+        int defaultPageSize = 10;
+        String[] defaultSortBy = {"createdBy"};
+
+        pageSize = (pageSize == null) ? defaultPageSize : pageSize;
+        sortBy = (sortBy == null) ? defaultSortBy : sortBy;
+
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.ASC, sortBy));
+
+        return packageRepository.findByCreatedByAndStatus(createdBy, true, pageable)
+                .map(packageMapper::toDto);    }
 
     @Override
     @Transactional
@@ -95,5 +192,10 @@ public class PackageServiceImpl implements PackageService {
         Package save = packageRepository.save(newPackage);
 
         return packageMapper.toDto(save);
+    }
+
+    @Override
+    public void delete(Integer id) {
+
     }
 }

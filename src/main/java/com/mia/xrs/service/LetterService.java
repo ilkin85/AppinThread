@@ -20,12 +20,12 @@ public interface LetterService {
                                Integer pageNumber,
                                String[] sortBy);
 
-    Page<LetterDto> findByFromDepartment(Integer id,
+    Page<LetterDto> findByFromDepartment(String name,
                                          Integer pageSize,
                                          Integer pageNumber,
                                          String[] sortBy);
 
-    Page<LetterDto> findByToDepartment(Integer id,
+    Page<LetterDto> findByToDepartment(String name,
                                        Integer pageSize,
                                        Integer pageNumber,
                                        String[] sortBy);

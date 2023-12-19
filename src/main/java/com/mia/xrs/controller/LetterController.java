@@ -41,20 +41,20 @@ public class LetterController {
         return ResponseEntity.ok(letterService.findByDate(date, pageSize, pageNumber, sortBy));
     }
 
-    @GetMapping("letters/from/{id}")
-    public ResponseEntity<Page<LetterDto>> findByFromDepartment(@PathVariable Integer id,
+    @GetMapping("letters/from")
+    public ResponseEntity<Page<LetterDto>> findByFromDepartment(@RequestParam String name,
                                                                 @RequestParam(name = "pageSize", required = false) Integer pageSize,
                                                                 @RequestParam(name = "pageNumber", required = true) Integer pageNumber,
                                                                 @RequestParam(name = "sortBy", required = false) String[] sortBy){
-        return ResponseEntity.ok(letterService.findByFromDepartment(id, pageSize, pageNumber, sortBy));
+        return ResponseEntity.ok(letterService.findByFromDepartment(name, pageSize, pageNumber, sortBy));
     }
 
-    @GetMapping("letters/to/{id}")
-    public ResponseEntity<Page<LetterDto>> findByToDepartment(@PathVariable Integer id,
+    @GetMapping("letters/to")
+    public ResponseEntity<Page<LetterDto>> findByToDepartment(@RequestParam String name,
                                                               @RequestParam(name = "pageSize", required = false) Integer pageSize,
                                                               @RequestParam(name = "pageNumber", required = true) Integer pageNumber,
                                                               @RequestParam(name = "sortBy", required = false) String[] sortBy){
-        return ResponseEntity.ok(letterService.findByToDepartment(id, pageSize, pageNumber, sortBy));
+        return ResponseEntity.ok(letterService.findByToDepartment(name, pageSize, pageNumber, sortBy));
     }
 
     @GetMapping("letters/createdBy")

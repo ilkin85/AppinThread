@@ -2,6 +2,7 @@ package com.mia.xrs.security;
 
 import com.mia.xrs.entity.User;
 import com.mia.xrs.entity.Role;
+import com.mia.xrs.entity.UserSpecification;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -34,6 +35,7 @@ public class JwtUtils {
         return Jwts.builder()
                 .setSubject(userPrincipal.getUsername())
                 .claim("authorities", authorities)
+                .claim("name",userPrincipal.getUserSpecification().getFirstName() + " "  + userPrincipal.getUserSpecification().getLastName())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
                 .signWith(key(), SignatureAlgorithm.HS256)

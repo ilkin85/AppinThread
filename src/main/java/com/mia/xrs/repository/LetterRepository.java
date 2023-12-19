@@ -28,16 +28,16 @@ public interface LetterRepository extends JpaRepository<Letter,Integer> {
                                      @Param("status") Boolean status, Pageable pageable);
 
     @Query("SELECT l FROM Letter l " +
-            "WHERE l.fromDepartment.parentId = :parentId " +
+            "WHERE l.fromDepartment.name = :name " +
             "AND l.status = :status")
-    Page<Letter> findByFromDepartmentAndStatus(@Param("parentId") Integer parentId,
+    Page<Letter> findByFromDepartmentAndStatus(@Param("name") String name,
                                                @Param("status") Boolean status, Pageable pageable);
 
     @Query("SELECT l FROM Letter l " +
-            "WHERE l.toDepartment.parentId = :parentId " +
+            "WHERE l.toDepartment.name = :name " +
             "AND l.status = :status")
-    Page<Letter> findByToDepartmentAndStatus(@Param("parentId") Integer parentId,
-                                               @Param("status") Boolean status, Pageable pageable);
+    Page<Letter> findByToDepartmentAndStatus(@Param("name") String name,
+                                             @Param("status") Boolean status, Pageable pageable);
 
     @Query("SELECT l FROM Letter l WHERE lower(l.createdBy.userSpecification.lastName) LIKE lower(concat('%', :createdBy, '%')) " +
             "AND l.status = :status")
