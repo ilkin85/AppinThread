@@ -22,7 +22,7 @@ public interface RejectService {
                                Integer pageNumber,
                                String[] sortBy);
 
-//    Optional<RejectDto> findByLetterNo(Integer letterNo, Boolean status);
+    RejectDto findByLetterNo(Integer letterNo, Boolean status);
 
     RejectDto save(RejectDto rejectDto);
 

@@ -79,15 +79,14 @@ public class RejectServiceImpl implements RejectService {
                 .map(rejectMapper::toDto);
     }
 
-//    @Override
-//    public Optional<RejectDto> findByLetterNo(Integer letterNo, Boolean status) {
-//        Letter letter = rejectRepository.findByLetterNoAndStatus(letterNo, true)
-//                .orElseThrow(() -> new NotFoundException("Letter by letterNo: " + letterNo + "not found"));
-//
-//        Reject reject = rejectRepository.findByLetterNoAndStatus(letter, status);
-//
-//        return rejectMapper.toDto(reject);
-//    }
+    @Override
+    public RejectDto findByLetterNo(Integer letterNo, Boolean status) {
+
+        Reject reject = rejectRepository.findByLetterNoAndRejectStatus(letterNo, status)
+                .orElseThrow(()-> new NotFoundException("Letter by no : " + letterNo + " not found"));
+
+        return rejectMapper.toDto(reject);
+    }
 
 
 
