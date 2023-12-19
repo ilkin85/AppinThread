@@ -65,11 +65,22 @@ public class RejectServiceImpl implements RejectService {
                                             Integer pageSize,
                                             Integer pageNumber,
                                             String[] sortBy) {
-        return null;
+        int defaultPageSize = 10;
+        String[] defaultSortBy = {"rejectNo"};
+
+        pageSize = (pageSize == null) ? defaultPageSize : pageSize;
+        sortBy = (sortBy == null) ? defaultSortBy : sortBy;
+
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.ASC, sortBy));
+
+        return rejectRepository.findByReturnDate(date, pageable, true)
+                .map(rejectMapper::toDto);
     }
 
     @Override
     public RejectDto findByLetterNo(Integer letterNo) {
+//        Letter letter = rejectRepository.findByLetterNoAndStatus(letterNo, true);
+
         return null;
     }
 
