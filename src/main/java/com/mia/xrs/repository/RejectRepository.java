@@ -23,7 +23,7 @@ public interface RejectRepository extends JpaRepository<Reject,Integer> {
     @Query("SELECT r FROM Reject r WHERE r.routeNo = :routeNo AND r.status = :status")
     Letter findByRouteNoAndStatus(@Param("routeNo") Integer routeNo, @Param("status") Boolean status);
 
-    Page<Reject> findByReturnDate(Date returnDate, Pageable pageable);
+    Page<Reject> findByReturnDate(Date returnDate, Pageable pageable, Boolean status);
 
     @Query("SELECT r FROM Reject r WHERE r.letter.letterNo = :letterNo AND r.status = :status")
     Optional<Reject> findByLetterNoAndStatus(@Param("letterNo") String letterNo, @Param("status") Boolean status);
