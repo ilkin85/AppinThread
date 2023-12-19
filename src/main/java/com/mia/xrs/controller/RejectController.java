@@ -22,7 +22,10 @@ public class RejectController {
         return ResponseEntity.ok(rejectService.findAllPage(pageSize, pageNumber, sortBy));
     }
 
-
+    @GetMapping("/reject/{id}")
+    public ResponseEntity<RejectDto> findById(@PathVariable Integer id){
+        return ResponseEntity.ok(rejectService.findById(id));
+    }
 
 
 
